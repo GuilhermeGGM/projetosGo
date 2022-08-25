@@ -1,6 +1,6 @@
 package contas
 
-import "guilherme.moreira/clientes"
+import "github.com/GuilhermeGGM/projetosGo.git/clientes"
 
 type ContaCorrente struct {
 	Titular       clientes.Titular

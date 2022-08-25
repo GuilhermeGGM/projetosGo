@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"guilherme.moreira/contas"
+	"github.com/GuilhermeGGM/projetosGo.git/contas"
 )
 
 func PagarBoleto(conta verificarConta, valorBoleto float64) {

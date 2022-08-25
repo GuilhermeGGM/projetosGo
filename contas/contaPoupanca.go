@@ -1,6 +1,6 @@
 package contas
 
-import "guilherme.moreira/clientes"
+import "github.com/GuilhermeGGM/projetosGo.git/clientes"
 
 type ContaPoupanca struct {
 	Titular                              clientes.Titular
