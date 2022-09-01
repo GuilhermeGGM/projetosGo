@@ -1,38 +1,42 @@
 package contas
 
-import "github.com/GuilhermeGGM/projetosGo.git/clientes"
+import (
+	"errors"
+
+	"github.com/GuilhermeGGM/projetosGo.git/clientes"
+)
 
 type ContaPoupanca struct {
 	Titular                              clientes.Titular
 	NumeroAgencia, NumeroConta, Operação int
-	saldo                                float64
+	Saldo                                float64
 }
 
-func (c *ContaPoupanca) Sacar(valorDoSaque float64) string {
+func (c *ContaPoupanca) Sacar(valorDoSaque float64) (string, error) {
 
-	podeSacar := valorDoSaque <= c.saldo && valorDoSaque > 0
+	podeSacar := valorDoSaque <= c.Saldo && valorDoSaque > 0
 
 	if podeSacar {
-		c.saldo -= valorDoSaque
-		return "Saque reaizado com sucesso"
+		c.Saldo -= valorDoSaque
+		return "Saque reaizado com sucesso", nil
 	} else {
-		return "Erro! saldo insuficiente"
+		return "", errors.New("Valor de saque inválido")
 	}
 }
 
-func (c *ContaPoupanca) Depositar(valorDoDeposito float64) string {
+func (c *ContaPoupanca) Depositar(valorDoDeposito float64) (string, error) {
 
 	if valorDoDeposito > 0 {
-		c.saldo += valorDoDeposito
-		return "Depósito feito com sucesso"
+		c.Saldo += valorDoDeposito
+		return "Depósito feito com sucesso", nil
 	} else {
-		return "Erro! Valor de depósito inválido"
+		return "", errors.New("Valor de depósito inválido")
 	}
 
 }
 
 func (c *ContaPoupanca) ObterSaldo() float64 {
 
-	saldo := c.saldo
+	saldo := c.Saldo
 	return saldo
 }

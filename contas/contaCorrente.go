@@ -1,50 +1,53 @@
 package contas
 
-import "github.com/GuilhermeGGM/projetosGo.git/clientes"
+import (
+	"errors"
+
+	"github.com/GuilhermeGGM/projetosGo.git/clientes"
+)
 
 type ContaCorrente struct {
-	Titular       clientes.Titular
-	NumeroAgencia int
-	NumeroConta   int
-	saldo         float64
+	Titular                    clientes.Titular
+	NumeroAgencia, NumeroConta int
+	Saldo                      float64
 }
 
-func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
+func (c *ContaCorrente) Sacar(valorDoSaque float64) (string, error) {
 
-	podeSacar := valorDoSaque <= c.saldo && valorDoSaque > 0
+	podeSacar := valorDoSaque <= c.Saldo && valorDoSaque > 0
 
-	if podeSacar {
-		c.saldo -= valorDoSaque
-		return "Saque reaizado com sucesso"
+	if !podeSacar {
+		return "", errors.New("Erro, valor de saque inválido")
 	} else {
-		return "Erro! saldo insuficiente"
+		c.Saldo -= valorDoSaque
+		return "Sucesso", nil
 	}
 }
 
-func (c *ContaCorrente) Depositar(valorDoDeposito float64) string {
+func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, error) {
 
 	if valorDoDeposito > 0 {
-		c.saldo += valorDoDeposito
-		return "Depósito feito com sucesso"
+		c.Saldo += valorDoDeposito
+		return "Depósito feito com sucesso", nil
 	} else {
-		return "Erro! Valor de depósito inválido"
+		return "", errors.New("Erro! Valor de depósito inválido")
 	}
 
 }
 
-func (c *ContaCorrente) Transferir(valorTransferencia float64, contaDestino *ContaCorrente) bool {
+func (c *ContaCorrente) Transferir(valorTransferencia float64, contaDestino *ContaCorrente) (string, error) {
 
-	if valorTransferencia < c.saldo && valorTransferencia > 0 {
+	if valorTransferencia <= c.Saldo && valorTransferencia > 0 {
 		contaDestino.Depositar(valorTransferencia)
-		c.saldo -= valorTransferencia
-		return true
+		c.Saldo -= valorTransferencia
+		return "Transferência feita com sucesso", nil
 	} else {
-		return false
+		return "", errors.New("Erro")
 	}
 }
 
 func (c *ContaCorrente) ObterSaldo() float64 {
 
-	saldo := c.saldo
+	saldo := c.Saldo
 	return saldo
 }
