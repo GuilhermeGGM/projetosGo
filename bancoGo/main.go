@@ -8,8 +8,6 @@ import (
 	"github.com/GuilhermeGGM/projetosGo.git/clientes"
 
 	"fmt"
-
-	""
 )
 
 func PagarBoleto(conta verificarConta, valorBoleto float64) {
