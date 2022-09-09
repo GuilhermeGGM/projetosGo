@@ -32,7 +32,6 @@ func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, error) {
 	} else {
 		return "", errors.New("Erro! Valor de depósito inválido")
 	}
-
 }
 
 func (c *ContaCorrente) Transferir(valorTransferencia float64, contaDestino *ContaCorrente) (string, error) {

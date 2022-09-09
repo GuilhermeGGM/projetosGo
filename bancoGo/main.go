@@ -7,6 +7,8 @@ import (
 
 	"github.com/GuilhermeGGM/projetosGo.git/clientes"
 
+	"github.com/GuilhermeGGM/projetosGo.git/utils"
+
 	"fmt"
 )
 
@@ -23,7 +25,7 @@ func main() {
 	testeContaC := contas.ContaCorrente{
 		Titular: clientes.Titular{
 			Nome:      "",
-			CPF:       "02387122062",
+			CPF:       "0238712206",
 			Profissao: "",
 		},
 		NumeroAgencia: 0,
@@ -31,7 +33,13 @@ func main() {
 		Saldo:         1000,
 	}
 
-	if testeContaC.Titular.ValidarCPF(testeContaC.Titular.CPF) {
+	valid, err := utils.ValidarCPF(testeContaC.Titular.CPF)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if valid {
 
 		fmt.Println(testeContaC.Saldo)
 
@@ -42,7 +50,5 @@ func main() {
 		fmt.Println(result)
 		fmt.Println(err)
 		fmt.Println(testeContaC.Saldo)
-	} else {
-		fmt.Println("Erro! CPF informado inválido")
 	}
 }

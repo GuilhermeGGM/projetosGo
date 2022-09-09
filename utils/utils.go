@@ -1,10 +1,14 @@
 package utils
 
-func ValidarCPF(cpf string) bool {
+import (
+	"errors"
+)
+
+func ValidarCPF(cpf string) (bool, error) {
 
 	if len(cpf) == 11 {
-		return true
+		return true, nil
 	} else {
-		return false
+		return false, errors.New("CPF inválido")
 	}
 }

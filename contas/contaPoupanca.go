@@ -7,9 +7,9 @@ import (
 )
 
 type ContaPoupanca struct {
-	Titular                              clientes.Titular
-	NumeroAgencia, NumeroConta, Operação int
-	Saldo                                float64
+	Titular                    clientes.Titular
+	NumeroAgencia, NumeroConta int
+	Saldo                      float64
 }
 
 func (c *ContaPoupanca) Sacar(valorDoSaque float64) (string, error) {
@@ -32,7 +32,6 @@ func (c *ContaPoupanca) Depositar(valorDoDeposito float64) (string, error) {
 	} else {
 		return "", errors.New("Valor de depósito inválido")
 	}
-
 }
 
 func (c *ContaPoupanca) ObterSaldo() float64 {
